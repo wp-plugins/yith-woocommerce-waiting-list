@@ -58,7 +58,7 @@ if ( ! class_exists( 'YITH_WCWTL_Admin' ) ) {
 		/**
 		 * @var string Premium version landing link
 		 */
-		protected $_premium_landing = 'http://yithemes.com/themes/plugins/yith-woocommerce-waiting-list/';
+		protected $_premium_landing = 'https://yithemes.com/themes/plugins/yith-woocommerce-waiting-list/';
 
 		/**
 		 * @var string Waiting List panel page
@@ -72,7 +72,7 @@ if ( ! class_exists( 'YITH_WCWTL_Admin' ) ) {
 		 * @access public
 		 * @since 1.0.0
 		 */
-		public $doc_url = 'http://yithemes.com/docs-plugins/yith-woocommerce-waiting-list/';
+		public $doc_url = 'https://yithemes.com/docs-plugins/yith-woocommerce-waiting-list/';
 
 		/**
 		 * Returns single instance of the class
@@ -100,11 +100,11 @@ if ( ! class_exists( 'YITH_WCWTL_Admin' ) ) {
 
 			//Add action links
 			add_filter( 'plugin_action_links_' . plugin_basename( YITH_WCWTL_DIR . '/' . basename( YITH_WCWTL_FILE ) ), array( $this, 'action_links' ) );
-			//add_filter( 'plugin_row_meta', array( $this, 'plugin_row_meta' ), 10, 4 );
+			add_filter( 'plugin_row_meta', array( $this, 'plugin_row_meta' ), 10, 4 );
 
-//			if ( ! ( defined( 'YITH_WCWTL_PREMIUM' ) && YITH_WCWTL_PREMIUM ) ) {
-//				add_action( 'yith_waiting_list_premium', array( $this, 'premium_tab' ) );
-//			}
+			if ( ! ( defined( 'YITH_WCWTL_PREMIUM' ) && YITH_WCWTL_PREMIUM ) ) {
+				add_action( 'yith_waiting_list_premium', array( $this, 'premium_tab' ) );
+			}
 
 			// YITH WCWTL Loaded
 			do_action( 'yith_wcwtl_loaded' );
@@ -127,9 +127,9 @@ if ( ! class_exists( 'YITH_WCWTL_Admin' ) ) {
 		public function action_links( $links ) {
 
 			$links[] = '<a href="' . admin_url( "admin.php?page={$this->_panel_page}" ) . '">' . __( 'Settings', 'yith-wcwtl' ) . '</a>';
-//			if ( ! ( defined( 'YITH_WCWTL_PREMIUM' ) && YITH_WCWTL_PREMIUM ) ) {
-//				$links[] = '<a href="' . $this->get_premium_landing_uri() . '" target="_blank">' . __( 'Premium Version', 'yith-wcwtl' ) . '</a>';
-//			}
+			if ( ! ( defined( 'YITH_WCWTL_PREMIUM' ) && YITH_WCWTL_PREMIUM ) ) {
+				$links[] = '<a href="' . $this->get_premium_landing_uri() . '" target="_blank">' . __( 'Premium Version', 'yith-wcwtl' ) . '</a>';
+			}
 			return $links;
 		}
 
@@ -152,9 +152,9 @@ if ( ! class_exists( 'YITH_WCWTL_Admin' ) ) {
 				'general' => __( 'Settings', 'yith-wcwtl' )
 			);
 
-//			if ( ! ( defined( 'YITH_WCWTL_PREMIUM' ) && YITH_WCWTL_PREMIUM ) ) {
-//				$admin_tabs['premium']  = __( 'Premium Version', 'yith-wcwtl' );
-//			}
+			if ( ! ( defined( 'YITH_WCWTL_PREMIUM' ) && YITH_WCWTL_PREMIUM ) ) {
+				$admin_tabs['premium']  = __( 'Premium Version', 'yith-wcwtl' );
+			}
 
 			$args = array(
 				'create_menu_page' => true,
@@ -165,7 +165,7 @@ if ( ! class_exists( 'YITH_WCWTL_Admin' ) ) {
 				'parent'           => '',
 				'parent_page'      => 'yit_plugin_panel',
 				'page'             => $this->_panel_page,
-				'admin-tabs'       => $admin_tabs,
+				'admin-tabs'       => apply_filters( 'yith-wcwtl-admin-tabs', $admin_tabs ),
 				'options-path'     => YITH_WCWTL_DIR . '/plugin-options'
 			);
 

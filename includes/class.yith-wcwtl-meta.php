@@ -1,6 +1,6 @@
 <?php
 /**
- * Main class
+ * Meta class
  *
  * @author Yithemes
  * @package YITH WooCommerce Waiting List
@@ -78,9 +78,9 @@ if ( ! class_exists( 'YITH_WCWTL_Meta' ) ) {
 		 * @author Francesco Licandro <francesco.licandro@yithemes.com>
 		 */
 		public function enqueue_scripts(){
-			wp_enqueue_script( 'yith-waitlist-admin', YITH_WCWTL_ASSETS_URL . '/js/admin.js', array( 'jquery' ), false, true );
+			wp_enqueue_script( 'yith-waitlist-metabox', YITH_WCWTL_ASSETS_URL . '/js/metabox.js', array( 'jquery' ), false, true );
 
-			wp_localize_script( 'yith-waitlist-admin', 'yith_wcwtl_admin', array(
+			wp_localize_script( 'yith-waitlist-metabox', 'yith_wcwtl_meta', array(
 				'ajaxurl'   => admin_url( 'admin-ajax.php' )
 			));
 		}
@@ -165,11 +165,11 @@ if ( ! class_exists( 'YITH_WCWTL_Meta' ) ) {
 
 			if ( ! empty( $users ) ) {
 				echo '<p class="users-on-waitlist">';
-				echo sprintf( _n( 'There is %s user on the waiting list for this product', 'There are %s users on the waiting list for this product', count( $users ), 'yith-wcwtl' ), count( $users ) );
+				echo sprintf( _n( 'There is %s user in the waiting list for this product', 'There are %s users in the waiting list for this product', count( $users ), 'yith-wcwtl' ), count( $users ) );
 				echo '</p>';
 			}
 			else {
-				echo __( 'There are no users for this waiting list', 'yith-wcwtl' );
+				echo __( 'There are no users in this waiting list', 'yith-wcwtl' );
 			}
 
 			do_action( 'yith-wcwtl-before-send-button', $users, $id );
@@ -177,6 +177,8 @@ if ( ! class_exists( 'YITH_WCWTL_Meta' ) ) {
 			if( ! empty( $users ) ) {
 				$this->button_to_send_mail( $id );
 			}
+
+			echo '<p class="response-message"></p>';
 		}
 
 		/**
@@ -188,7 +190,7 @@ if ( ! class_exists( 'YITH_WCWTL_Meta' ) ) {
 		 */
 		public function button_to_send_mail( $id ) {
 			?>
-			<input type="button" class="button yith-waitlist-send-mail" data-product_id="<?php echo $id ?>" value="<?php echo apply_filters( 'yith_wcwtl_button_send_mail_label', __( 'Send email to users', 'yith-wcwtl' ) ); ?>" />
+			<input type="button" class="button yith-waitlist-send-mail" data-product_id="<?php echo $id ?>" value="<?php echo apply_filters( 'yith_wcwtl_button_send_mail_label', __( 'Send the email to the users', 'yith-wcwtl' ) ); ?>" />
 			<?php
 		}
 
@@ -205,32 +207,27 @@ if ( ! class_exists( 'YITH_WCWTL_Meta' ) ) {
 				die();
 
 
-			$id = intval( $_REQUEST['product'] );
-			$product = wc_get_product( $id );
-
-			// check if product exist
-			if( ! $product )
-				die();
+			$product_id = intval( $_REQUEST['product'] );
 
 			// get waitlist users for product
-			$users = yith_waitlist_get_registered_users( $id );
+			$users = yith_waitlist_get_registered_users( $product_id );
 
 			if( ! empty( $users ) ) {
 				// send mail
-				do_action( 'send_yith_waitlist_mailout', $users, $product );
+				do_action( 'send_yith_waitlist_mailout', $users, $product_id );
 			}
 
 			$response = apply_filters( 'yith_wcwtl_send_mail_response', false );
 
 			// check response
 			if( $response ) {
-				$msg    = apply_filters( 'yith_wcwtl_send_mail_success', __( 'Email sent correctly', 'yith-wcwtl' ) );
+				$msg    = apply_filters( 'yith_wcwtl_send_mail_success', __( 'Email sent correctly.', 'yith-wcwtl' ) );
 				$send   = true;
 				// empty waitlist
-				yith_waitlist_empty( $id );
+				yith_waitlist_empty( $product_id );
 			}
 			else {
-				$msg    = apply_filters( 'yith_wcwtl_send_mail_error', __( 'An error has occurred, please try again', 'yith-wcwtl' ) );
+				$msg    = apply_filters( 'yith_wcwtl_send_mail_error', __( 'An error has occurred, please try again.', 'yith-wcwtl' ) );
 				$send   = false;
 			}
 

@@ -52,13 +52,17 @@ if ( ! class_exists( 'YITH_WCWTL_Email' ) ) {
 		 * @access public
 		 * @since 1.0.0
 		 * @param mixed $users Waitlist users array
-		 * @param object $product
+		 * @param integer $product_id Product id
 		 * @return void
 		 * @author Francesco Licandro <francesco.licandro@yithemes.com>
 		 */
-		public function trigger( $users, $product ) {
+		public function trigger( $users, $product_id ) {
 
-			$this->object = $product;
+			$this->object = wc_get_product( $product_id );
+
+			if( ! $this->object ) {
+				return;
+			}
 
 			$this->find[]       = '{product_title}';
 			$this->replace[]    = $this->object->get_title();

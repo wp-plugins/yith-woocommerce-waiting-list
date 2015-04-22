@@ -184,7 +184,7 @@ if ( ! class_exists( 'YIT_Licence' ) ) {
                 'instance'    => $this->get_home_url()
             );
 
-            $api_uri  = add_query_arg( $args, $this->get_api_uri( 'activation' ) );
+            $api_uri  = esc_url_raw( add_query_arg( $args, $this->get_api_uri( 'activation' ) ) );
             $response = wp_remote_get( $api_uri );
 
             if ( is_wp_error( $response ) ) {
@@ -252,7 +252,7 @@ if ( ! class_exists( 'YIT_Licence' ) ) {
                 'instance'    => $this->get_home_url()
             );
 
-            $api_uri  = add_query_arg( $args, $this->get_api_uri( 'check' ) );
+            $api_uri  = esc_url_raw( add_query_arg( $args, $this->get_api_uri( 'check' ) ) );
             $response = wp_remote_get( $api_uri );
 
             if ( ! is_wp_error( $response ) ) {
@@ -505,7 +505,7 @@ if ( ! class_exists( 'YIT_Licence' ) ) {
          * @author Andrea Grillo <andrea.grillo@yithemes.com>
          */
         public function get_licence_activation_page_url() {
-            return add_query_arg( array( 'page' => $this->_settings['page'] ), admin_url( 'admin.php' ) );
+            return esc_url( add_query_arg( array( 'page' => $this->_settings['page'] ), admin_url( 'admin.php' ) ) );
         }
 
 

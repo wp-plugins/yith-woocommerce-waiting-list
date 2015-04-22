@@ -2,8 +2,8 @@
 Contributors: yithemes
 Tags: yith, woocommerce, waiting list, woocommerce waiting, list, waiting, email list, out of stock, wait list
 Requires at least: 4.0
-Tested up to: 4.1
-Stable tag: 1.0.0
+Tested up to: 4.2
+Stable tag: 1.0.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -31,8 +31,17 @@ What do you do when you have no more stock of one of your products and your cust
 == Screenshots ==
 
 1. The plugin admin page.
+2. Plugin frontend for logged in user
+3. Plugin frontend for guest user
 
 == Changelog ==
+
+= 1.0.1 =
+
+* Added compatibility to Wordpress 4.2
+* Update plugin core
+* Fixed form for variation product
+* Fixed send mail for variation product
 
 = 1.0.0 =
 
@@ -60,6 +69,8 @@ If you have created your own language pack, or have an update for an existing on
 
 == Upgrade notice ==
 
-= 1.0.0 =
+= 1.0.1 =
 
-* Initial release
+* Updated: plugin core
+* Fixed: Form for variation product
+* Fixed: Send mail for variation product
