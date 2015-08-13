@@ -212,7 +212,9 @@ if ( ! class_exists( 'YITH_WCWTL_Admin' ) ) {
 		 */
 		public function plugin_row_meta( $plugin_meta, $plugin_file, $plugin_data, $status ) {
 
-			$plugin_meta[] = '<a href="' . $this->doc_url . '" target="_blank">' . __( 'Plugin Documentation', 'yith-wcwtl' ) . '</a>';
+			if( defined( 'YITH_WCWTL_INIT') && YITH_WCWTL_INIT == $plugin_file ) {
+				$plugin_meta[] = '<a href="' . $this->doc_url . '" target="_blank">' . __( 'Plugin Documentation', 'yith-wcwtl' ) . '</a>';
+			}
 
 			return $plugin_meta;
 		}
@@ -225,7 +227,7 @@ if ( ! class_exists( 'YITH_WCWTL_Admin' ) ) {
 		 * @return  string The premium landing link
 		 */
 		public function get_premium_landing_uri(){
-			return defined( 'YITH_REFER_ID' ) ? $this->_premium_landing . '?refer_id=' . YITH_REFER_ID : $this->_premium_landing;
+			return defined( 'YITH_REFER_ID' ) ? $this->_premium_landing . '?refer_id=' . YITH_REFER_ID : $this->_premium_landing.'?refer_id=1030585';
 		}
 
 	}

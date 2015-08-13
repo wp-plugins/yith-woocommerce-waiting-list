@@ -1,9 +1,9 @@
 === Plugin Name ===
 Contributors: yithemes
-Tags: yith, woocommerce, waiting list, woocommerce waiting, list, waiting, email list, out of stock, wait list
+Tags: yith, woocommerce, waiting list, woocommerce waiting, list, waiting, email list, out of stock, wait list, out-of-stock, in-stock, stock,
 Requires at least: 4.0
-Tested up to: 4.2
-Stable tag: 1.0.1
+Tested up to: 4.2.4
+Stable tag: 1.0.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -35,6 +35,13 @@ What do you do when you have no more stock of one of your products and your cust
 3. Plugin frontend for guest user
 
 == Changelog ==
+
+= 1.0.2 =
+
+* Added: Compatibility to WooCommerce 2.4
+* Fixed: Plugin documentation link
+* Updated: Plugin core
+* Updated: Language file
 
 = 1.0.1 =
 
@@ -69,8 +76,9 @@ If you have created your own language pack, or have an update for an existing on
 
 == Upgrade notice ==
 
-= 1.0.1 =
+= 1.0.2 =
 
-* Updated: plugin core
-* Fixed: Form for variation product
-* Fixed: Send mail for variation product
+* Added: Compatibility to WooCommerce 2.4
+* Fixed: Plugin documentation link
+* Updated: Plugin core
+* Updated: Language file
